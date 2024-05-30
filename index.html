@@ -5,43 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Interactive World Map</title>
     <link rel="stylesheet" href="style.css">
-    <script src="https://d3js.org/d3.v7.min.js"></script>
-    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 </head>
 <body>
     <div id="map"></div>
-    <div id="treemapHolder"></div>
-
-    <div id="container">
-        <div id="controls">
-            <input type="range" class="slider-selector" id="year-slider" min="2000" max="2020" value="2000">
-            <div class="slider-display" id="year-display">Year: 2000</div>
-            <select id="metric-selector" class="metric-selector">
-                <option value="population">Population</option>
-                <option value="gdp">GDP</option>
-            </select>
-            <button id="playPauseBtn">Play</button>
-        </div>
-        <div id="elements-selector">
-            <input type="range" class="slider-selector" id="item-count-slider" min="1" max="50" value="10">
-            <div class="slider-display" id="item-count-display">Display: 10 items</div>
-        </div>
+    <div id="controls">
+        <input type="range" id="year-slider" min="2000" max="2020" step="1" multiple>
+        <div id="year-display">Year: 2000</div>
+        <select id="metric-selector">
+            <option value="population">Population</option>
+            <option value="gdp">GDP</option>
+            <!-- Add other metrics here -->
+        </select>
     </div>
-
-    <div class="switch-card">
-        <div class="switch-container" id="switchContainer">
-            <input class="three-way-selector" type="radio" id="mercator" name="switch" checked>
-            <label for="mercator" class="switch-label">Mercator</label>
-
-            <input class="three-way-selector" type="radio" id="globe" name="switch">
-            <label for="globe" class="switch-label">Globe</label>
-
-            <input class="three-way-selector" type="radio" id="treemap" name="switch">
-            <label for="treemap" class="switch-label">Tree Map</label>
-
-            <div class="highlighter" id="highlighter"></div>
-        </div>
-    </div>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

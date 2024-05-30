@@ -12,79 +12,13 @@ body, html {
     height: 100%;
     overflow: hidden;
     font-family: 'Arial', sans-serif;
-    background-color: #f5f5f5; /* Light grey background */
+    background-color: #1e1e1e; /* Dark background */
 }
 
 #map {
     width: 100%;
     height: 100%;
     background-color: #a2d5f2; /* A light blue to represent the sea */
-}
-
-.switch-card {
-    position: absolute;
-    top: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: rgba(255, 255, 255, 0.95);
-    padding: 15px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-}
-
-
-.switch-container {
-    position: relative;
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #ddd;
-    border-radius: 5px;
-    overflow: hidden;
-}
-
-.switch-label {
-    padding: 10px;
-    cursor: pointer;
-    font-size: 18px;
-    transition: color 0.3s;
-    z-index: 1;
-    white-space: nowrap;
-}
-
-.three-way-selector{
-    display: none;
-}
-
-.three-way-selector:checked + .switch-label {
-    color: white;
-}
-
-.switch-container .highlighter {
-    position: absolute;
-    top: 50%; 
-    transform: translateY(-50%); 
-    width: calc(100% / 3); 
-    height: 100%;
-    background-color: #2c3e50;
-    transition: left 0.3s, width 0.3s;
-    border-radius: 5px;
-}
-
-input#switch1:checked ~ .highlighter {
-    left: 0;
-}
-
-input#switch2:checked ~ .highlighter {
-    left: calc(100% / 3);
-}
-
-input#switch3:checked ~ .highlighter {
-    left: calc(2 * (100% / 3));
 }
 
 #controls {
@@ -101,22 +35,7 @@ input#switch3:checked ~ .highlighter {
     gap: 10px;
 }
 
-#elements-selector {
-    position: absolute;
-    bottom: 20px;
-    background: rgba(255, 255, 255, 0.95);
-    padding: 15px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-    display: none; /* Initially hidden */
-    opacity: 0; /* Initial opacity */
-}
-
-.slider-selector {
+#year-slider {
     width: 200px;
     -webkit-appearance: none;
     appearance: none;
@@ -126,7 +45,7 @@ input#switch3:checked ~ .highlighter {
     outline: none;
 }
 
-.slider-selector::-webkit-slider-thumb {
+#year-slider::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
     width: 20px;
@@ -136,7 +55,7 @@ input#switch3:checked ~ .highlighter {
     cursor: pointer;
 }
 
-.slider-selector::-moz-range-thumb {
+#year-slider::-moz-range-thumb {
     width: 20px;
     height: 20px;
     border-radius: 50%;
@@ -144,12 +63,12 @@ input#switch3:checked ~ .highlighter {
     cursor: pointer;
 }
 
-.slider-display {
+#year-display {
     font-size: 16px;
-    color: #2c3e50;
+    color: #f5f5f5;
 }
 
-#metric-selector, #playPauseBtn{
+#metric-selector {
     padding: 5px 10px;
     border-radius: 5px;
     border: none;
@@ -158,17 +77,6 @@ input#switch3:checked ~ .highlighter {
     background: #2c3e50;
     color: white;
     font-size: 16px;
-}
-
-#country-metric-selector, #country-play-button{
-    padding: 4px 10px;
-    border-radius: 5px;
-    border: none;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    cursor: pointer;
-    background: #2c3e50;
-    color: white;
-    font-size: 14px;
 }
 
 #metric-selector option {
@@ -182,7 +90,7 @@ input#switch3:checked ~ .highlighter {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.6);
+    background-color: rgba(0, 0, 0, 0.8);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -190,7 +98,7 @@ input#switch3:checked ~ .highlighter {
 }
 
 .modal {
-    background-color: #fff;
+    background-color: #2e2e2e;
     padding: 20px;
     border-radius: 8px;
     width: 70%;
@@ -200,23 +108,44 @@ input#switch3:checked ~ .highlighter {
     overflow: hidden;
     z-index: 1001;
     box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+    color: #f5f5f5;
 }
 
-.modal-freesize {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
+.tab-container {
+    display: flex;
+    border-bottom: 1px solid #444;
+    margin-bottom: 10px;
+}
+
+.tab {
+    flex: 1;
+    padding: 10px;
+    text-align: center;
+    cursor: pointer;
+    background-color: #333;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    transition: background-color 0.2s;
+}
+
+.tab:hover, .tab.active {
+    background-color: #444;
+}
+
+.tab-content {
+    display: none;
+    flex: 1;
+}
+
+.tab-content.active {
     display: flex;
     flex-direction: column;
-    overflow: hidden;
-    z-index: 1001;
-    box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+    height: calc(100% - 50px); /* Adjust for tab height */
 }
 
 .top-container {
     display: flex;
-    flex: 1 1 auto;
-    height: calc(66% - 10px); /* Top two-thirds */
+    height: 45%; /* Adjusted height */
     width: 100%;
     margin-bottom: 10px;
 }
@@ -224,14 +153,15 @@ input#switch3:checked ~ .highlighter {
 .selection-container {
     flex: 1;
     padding: 20px;
-    border-right: 1px solid #ddd;
-    background-color: #fafafa; /* Light grey background */
+    border-right: 1px solid #444;
+    background-color: #1e1e1e; /* Dark grey background */
     border-radius: 8px 0 0 8px;
+    overflow-y: auto;
 }
 
 .selection-container h1 {
     font-size: 24px;
-    color: #333;
+    color: #f5f5f5;
     margin-bottom: 20px;
 }
 
@@ -243,7 +173,7 @@ input#switch3:checked ~ .highlighter {
 
 #year-range-container label {
     font-size: 14px;
-    color: #555;
+    color: #aaa;
     margin-right: 10px;
 }
 
@@ -251,17 +181,19 @@ input#switch3:checked ~ .highlighter {
     width: 80px;
     padding: 5px;
     margin-right: 20px;
-    border: 1px solid #ccc;
+    border: 1px solid #555;
     border-radius: 4px;
     font-size: 14px;
+    background-color: #333;
+    color: #f5f5f5;
 }
 
 #feature-selector {
     height: 150px; /* Fixed height for the feature selector */
     width: 100%;
-    border: 1px solid #ddd;
+    border: 1px solid #444;
     overflow-y: scroll;
-    background-color: #fff;
+    background-color: #2e2e2e;
     border-radius: 4px;
     padding: 10px;
     margin-bottom: 20px;
@@ -269,7 +201,7 @@ input#switch3:checked ~ .highlighter {
 
 #feature-selector h3 {
     font-size: 18px;
-    color: #333;
+    color: #f5f5f5;
     margin-bottom: 10px;
 }
 
@@ -279,10 +211,11 @@ input#switch3:checked ~ .highlighter {
     user-select: none;
     border-radius: 4px;
     transition: background-color 0.2s;
+    color: #f5f5f5;
 }
 
 .feature-option:hover {
-    background-color: #f0f0f0;
+    background-color: #444;
 }
 
 .feature-option.selected {
@@ -298,10 +231,12 @@ input#switch3:checked ~ .highlighter {
     width: 100%;
     padding: 10px;
     margin-top: 10px;
-    border: 1px solid #ddd;
+    border: 1px solid #555;
     border-radius: 4px;
     box-sizing: border-box;
     font-size: 14px;
+    background-color: #333;
+    color: #f5f5f5;
 }
 
 .add-formula-button {
@@ -326,16 +261,16 @@ input#switch3:checked ~ .highlighter {
 
 #formula-list-container h3 {
     font-size: 18px;
-    color: #333;
+    color: #f5f5f5;
     margin-bottom: 10px;
 }
 
 #formula-list {
     height: 50px;
     overflow-y: scroll;
-    border: 1px solid #ddd;
+    border: 1px solid #444;
     padding: 10px;
-    background-color: #fff;
+    background-color: #2e2e2e;
     border-radius: 4px;
 }
 
@@ -352,32 +287,41 @@ input#switch3:checked ~ .highlighter {
 .map-container {
     flex: 1;
     padding: 10px;
-    background-color: #fff;
+    background-color: #2e2e2e;
     border-radius: 0 8px 8px 0;
-    border: 1px solid #ddd;
+    border: 1px solid #444;
 }
 
 .plot-container {
-    height: 34%; /* Bottom third */
+    height: 55%; /* Bottom part is now 55% */
     width: 100%;
     display: flex;
-    flex-direction: column;
+    flex-direction: row; /* Arrange plots side by side */
+    gap: 10px; /* Add some space between plots */
 }
 
-#plot-area {
+.plot-area {
     flex: 1;
-    width: 100%;
+    width: 50%; /* Each plot takes up half the width */
     height: 100%;
-    border: 1px solid #ddd;
+    border: 1px solid #444;
     border-radius: 4px;
-    background-color: #fff;
+    background-color: #2e2e2e;
     padding: 10px;
+    color: #f5f5f5;
 }
 
 .button-container {
+    width: 100%; /* Full width container */
+    padding: 10px 20px;
+    border-top: 1px solid #444;
+    background-color: #2e2e2e;
+    border-radius: 0 0 8px 8px;
     display: flex;
-    justify-content: space-between;
-    margin-top: 10px;
+    justify-content: space-between; /* Distribute buttons evenly */
+    position: absolute;
+    bottom: 0;
+    left: 0;
 }
 
 .plot-button {
@@ -406,4 +350,22 @@ input#switch3:checked ~ .highlighter {
     z-index: 10;
     border-radius: 4px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.zoom-button {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    padding: 10px;
+    background-color: #2c3e50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 18px;
+    cursor: pointer;
+    margin-right: 5px;
+}
+
+.zoom-button:hover {
+    background-color: #1a252f;
 }
